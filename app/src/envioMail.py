@@ -1,16 +1,27 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
 from app.dataBase.citas import Cita
+from dotenv import load_dotenv
+import os
 
 
 def enviar_email_confirmacion(cita: Cita):
-        mail = "crodriguez@bogotamovil.com.co"
+        load_dotenv()
+        mail = os.getenv("EMAIL")
+        password = os.getenv("PASSWORD")
+
+        if mail is None or password is None:
+           return ("Error: Las variables de entorno MAIL y PASSWORD no se cargaron correctamente.")
+
+        # Comprobar que la cita tiene un cliente y un correo electrónico
+        if cita.cliente is None or cita.cliente.email is None:
+            return("Error: La cita no tiene un cliente o el cliente no tiene un correo electrónico.")
+
         # Configurar el servidor SMTP
         servidor = smtplib.SMTP('smtp.gmail.com', 587)
         servidor.starttls()
-        servidor.login(mail, "Aa1o3o6349oo++-")
+        servidor.login(mail, password)
 
         # Crear el mensaje
         mensaje = MIMEMultipart()

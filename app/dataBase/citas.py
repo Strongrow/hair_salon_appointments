@@ -1,13 +1,14 @@
 from sqlalchemy import Column, Integer, DateTime, ForeignKey, Time, String
-from sqlalchemy.orm import relationship
 from app.dataBase.declarative_base import Base
 
+# Definimos la clase Cita que hereda de Base
 class Cita(Base):
+    # Especificamos el nombre de la tabla en la base de datos
     __tablename__ = 'citas'
-
+    # Definimos los posibles estados de una cita
     ESTADOS_POSIBLES = ["apartada","confirmada", "en progreso", "finalizada", "cancelada"]
 
-
+    
     id = Column(Integer, primary_key=True)
     fecha_inicio = Column(DateTime, nullable=False)
     fecha_fin = Column(DateTime, nullable=False)
@@ -16,6 +17,3 @@ class Cita(Base):
     cliente_id = Column(Integer, ForeignKey('clientes.id'), nullable=False)
     servicio_id = Column(Integer, ForeignKey('servicios.id'), nullable=False)
     estado = Column(String, default="apartada")
-    peluquero = relationship("Peluquero", back_populates="cita")
-    cliente = relationship("Cliente", back_populates="cita")
-    servicio = relationship("Servicio", back_populates="cita")

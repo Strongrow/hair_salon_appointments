@@ -1,5 +1,4 @@
 import sys
-from app.src.Logica import Logica 
 from fastapi import FastAPI
 from app.routers.peluqueros import router as router_peluqueros
 from app.routers.clientes import router as router_clientes

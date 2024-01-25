@@ -10,8 +10,8 @@ class Cliente(BaseModel):
     email: Optional[str] = None
 
 class Peluquero(BaseModel):
-    nombre: str
-    apellido: str
+    nombre:Optional[str] = None
+    apellido: Optional[str] = None
 
 class Servicio(BaseModel):
     descripcion: Optional[str] = None
@@ -32,7 +32,7 @@ class CitaBase(BaseModel):
     peluquero_id: Optional[int] = None
     cliente_id: Optional[int] = None
     servicio_id: Optional[int] = None
-    estado: Optional[EstadoCita] = EstadoCita.APARTADA.value
+    estado: Optional[str] = EstadoCita.APARTADA.value
 
     class Config:
         orm_mode = True
