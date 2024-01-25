@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
-from datetime import datetime
+from datetime import datetime, time
+from enum import Enum
 
 class Cliente(BaseModel):
     nombre: Optional[str] = None
@@ -13,12 +14,25 @@ class Peluquero(BaseModel):
     apellido: str
 
 class Servicio(BaseModel):
-    nombre: str
-    descripcion: str
-    costo: float
+    descripcion: Optional[str] = None
+    duracion: Optional[time] = None
+    costo: Optional[float] = None
 
-class Cita(BaseModel):
-    cliente_id: int
-    peluquero_id: int
-    servicio_id: int
-    fecha_hora: datetime
+class EstadoCita(Enum):
+    APARTADA: str = "apartada"
+    CONFIRMADA: str = "confirmada"
+    EN_PROGRESO: str = "en progreso"
+    FINALIZADA: str = "finalizada"
+    CANCELADA: str = "cancelada"
+
+class CitaBase(BaseModel):
+    fecha_inicio: Optional[datetime] = None
+    fecha_fin: Optional[datetime] = None
+    duracion: Optional[time] = None
+    peluquero_id: Optional[int] = None
+    cliente_id: Optional[int] = None
+    servicio_id: Optional[int] = None
+    estado: Optional[EstadoCita] = EstadoCita.APARTADA.value
+
+    class Config:
+        orm_mode = True

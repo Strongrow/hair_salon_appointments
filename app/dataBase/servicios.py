@@ -1,11 +1,15 @@
-from sqlalchemy import Column, Integer, String, CheckConstraint, Time
+from sqlalchemy import Column, Integer, String, CheckConstraint, Time, Float
+from sqlalchemy.orm import relationship
 from .declarative_base import Base
+
 
 class Servicio(Base):
     __tablename__ = 'servicios'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    service = Column(String(50), nullable=False)
-    duration = Column(Time(), nullable=False)
-    price = Column(Integer, nullable=False)
+    descripcion = Column(String(50), nullable=False)
+    duracion = Column(Time(), nullable=False)
+    costo = Column(Float, nullable=False)
+    cita = relationship("Cita", back_populates="servicio")
+    
 
