@@ -17,6 +17,7 @@ Aquí hay un ejemplo de cómo debería verse tu archivo .env:
 ````plaintext
   EMAIL=tu_correo@gmail.com
   PASSWORD=tu_contraseña
+````
 
 Por favor, reemplaza tu_correo@gmail.com y tu_contraseña con tu dirección de correo electrónico de Gmail y tu contraseña, respectivamente.
 
