@@ -9,6 +9,5 @@ class Servicio(Base):
     descripcion = Column(String(50), nullable=False)
     duracion = Column(Time(), nullable=False)
     costo = Column(Float, nullable=False)
-    #cita = relationship('Cita', back_populates='servicio')
     
 

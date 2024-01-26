@@ -10,7 +10,5 @@ class Peluquero(Base):
     nombre = Column(String(50), nullable=False)
     apellido = Column(String(50), nullable=False)
 
-    #cita = relationship("Cita", back_populates="peluquero")
-
 
 
