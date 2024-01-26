@@ -7,7 +7,7 @@ Documentación del Proyecto
 ## Configuración
 Para configurar el proyecto, necesitarás establecer algunas variables de entorno en un archivo .env. Este archivo debe estar en la raíz del proyecto.
 
-## Variables de entorno
+### Variables de entorno
 Las siguientes variables de entorno son necesarias para el proyecto:
 
 EMAIL: Este es el correo electrónico que se utilizará para las pruebas. Debe ser una cuenta de Gmail y no debe tener habilitada la verificación en dos pasos.
