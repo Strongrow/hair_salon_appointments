@@ -17,12 +17,14 @@ class TestServicioService(unittest.TestCase):
         duracion = time(hour=random.randint(1, 3), minute=random.randint(0, 59))
         costo = round(random.uniform(50.0, 200.0), 2)
         with self.session as session:
-            self.servicio_service = self.servicio_service(session)
-            servicio = self.servicio_service.crear_servicio(descripcion, duracion, costo)
+            #self.servicio_service.crear_servicio(session)
+            servicio = self.servicio_service.crear_servicio(session,descripcion, duracion, costo)
             session.flush()
             self.assertEqual(servicio.descripcion, descripcion)
             self.assertEqual(servicio.duracion, duracion)
             self.assertEqual(servicio.costo, costo)
+            
+            
 
     def test_dar_servicios(self):
         servicios = self.servicio_service.dar_servicios()
@@ -38,10 +40,20 @@ class TestServicioService(unittest.TestCase):
             self.assertIsInstance(servicio, Servicio)
 
     def test_actualizar_servicio(self):
-        servicio_id = 1  # replace with a valid id
-        nuevo_costo = 200.0
-        servicio = self.servicio_service.set_session(servicio_id, costo=nuevo_costo)
-        self.assertEqual(servicio.costo, nuevo_costo)
+        with self.session as session:
+        # Obtén el primer servicio de la base de datos
+            servicio = session.query(Servicio).first()
+            if servicio is None:
+                self.fail("No hay servicios en la base de datos para probar")
+
+            # Genera un costo aleatorio
+            nuevo_costo = round(random.uniform(50.0, 200.0), 2)
+
+            # Actualiza el servicio
+            servicio_actualizado = self.servicio_service.actualizar_servicio(servicio.id, costo=nuevo_costo)
+
+            # Comprueba que el costo se ha actualizado correctamente
+            self.assertEqual(servicio_actualizado.costo, nuevo_costo)
 
     def eliminar_servicio(self, servicio_id: int):
         with Session() as session:
